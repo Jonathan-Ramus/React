@@ -8,24 +8,21 @@ const SearchResult = () => {
     const searchText = useSelector((state) => {
         return state.searchText.value;
     });
-    const queryResult = useSearchMoviesQuery(searchText)
+    const {data, error, isFetching} = useSearchMoviesQuery(searchText)
 
     let content
     
-    try{
-        let movies = queryResult.data.results
+    if (isFetching) {
+        content = <div>Loading;</div>
+      } else if (error) {
+        content = <div>Error loading movies.</div>;
+      } else {
+        let movies = data.results
         console.log(movies)
         content = movies.map((movie) => {
             return <ListItem key={movie.id} movie={movie} />
         })
-
-    } catch(e) {
-        console.log(e)
-        content = <p>No content</p>
-    }
-
-    
-    return (
+        content =
         <>
         <table className='center'>
             <tbody>
@@ -33,6 +30,13 @@ const SearchResult = () => {
             </tbody>
         </table>
         <MovieDetails />
+        </>
+    }
+
+    
+    return (
+        <>
+            {content}
         </>
     )
 }
