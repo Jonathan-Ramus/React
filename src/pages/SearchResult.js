@@ -13,12 +13,15 @@ const SearchResult = () => {
     let content
     
     if (isFetching) {
-        content = <div>Loading;</div>
+        content = <div>Loading...</div>
       } else if (error) {
-        content = <div>Error loading movies.</div>;
+        content = <div>An error occured...</div>
       } else {
         let movies = data.results
         console.log(movies)
+        if (movies.length === 0){
+            content = <div>No content</div>
+        } else {
         content = movies.map((movie) => {
             return <ListItem key={movie.id} movie={movie} />
         })
@@ -31,6 +34,7 @@ const SearchResult = () => {
         </table>
         <MovieDetails />
         </>
+        }
     }
 
     

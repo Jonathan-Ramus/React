@@ -8,18 +8,9 @@ const Watchlist = () => {
         return state.watchlist.value;
     });
 
-    let content
-    
-    try{
-        console.log(movies)
-        content = movies.map((movie) => {
-            return <WatchlistItem key={movie.id} movie={movie}></WatchlistItem>
-        })
-
-    } catch(e) {
-        console.log(e)
-        content = <p>No content</p>
-    }
+    const content = movies.map((movie) => {
+        return <WatchlistItem key={movie.id} movie={movie}></WatchlistItem>
+    })
 
     
     return (
